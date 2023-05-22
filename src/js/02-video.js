@@ -18,9 +18,11 @@ function update({seconds}) {
     localStorage.setItem(KEY, seconds);
 }
 
-const currentTime = localStorage.getItem('videoplayer-current-time') || 0;
+const currentTime = localStorage.getItem(KEY) || 0;
 
 player.setCurrentTime(currentTime);
+
+
 
 
 

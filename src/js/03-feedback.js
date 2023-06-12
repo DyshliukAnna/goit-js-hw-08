@@ -37,11 +37,13 @@ function reload() {
     refs.textareaEl.value = userData.message || '';
   }
 }
+// populateTextarea();
 // function populateTextarea() {
 //   const saveMessage = localStorage.getItem(LOCALSTORAGE_KEY);
 //   if (saveMessage) {
 //     refs.textareaEl.value = saveMessage;
 //   }
+// }
 
 // function onInput(e) {
 //     // Працює на будь яке поле в формі і записує значення з поля у наш обєкт formData

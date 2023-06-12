@@ -18,4 +18,4 @@ function update({ seconds }) {
 
 const currentTime = localStorage.getItem(KEY) || 0;
 
-// player.setCurrentTime(currentTime);
+player.setCurrentTime(currentTime);

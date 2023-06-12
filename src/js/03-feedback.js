@@ -18,8 +18,8 @@ function onFormSubmit(e) {
   e.preventDefault();
   console.log({ email: refs.emailEl.value, message: refs.textareaEl.value });
   if (refs.emailEl.value !== '' || refs.textareaEl.value !== '') {
-    refs.formEl.reset();
     localStorage.removeItem(LOCALSTORAGE_KEY);
+    refs.formEl.reset();
     userData = {};
   } else {
     alert('Будь ласка заповніть всі поля форми');

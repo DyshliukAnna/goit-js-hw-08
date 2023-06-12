@@ -1,6 +1,7 @@
 import throttle from 'lodash.throttle';
+
 const LOCALSTORAGE_KEY = 'feedback-form-state';
-let formData = {}
+let userData = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)) || {};
 
 const refs = {
   formEl: document.querySelector('form'),
@@ -8,44 +9,42 @@ const refs = {
   textareaEl: document.querySelector('textarea'),
 };
 
-
-
-// refs.formEl.addEventListener('input', onInput);
 refs.formEl.addEventListener('submit', onFormSubmit);
-refs.textareaEl.addEventListener('input', throttle(onTextareaInput, 500));
+refs.formEl.addEventListener('input', throttle(onFormInput, 500));
 
-populateTextarea()
-
+reload();
 
 function onFormSubmit(e) {
-    e.preventDefault();
+  e.preventDefault();
+  console.log({ email: refs.emailEl.value, message: refs.textareaEl.value });
+  if (refs.emailEl.value !== '' || refs.textareaEl.value !== '') {
+    refs.formEl.reset();
     localStorage.removeItem(LOCALSTORAGE_KEY);
-    if (refs.emailEl.value !== '' && refs.textareaEl.value !== '') {
-// formData[e.target.name] = e.target.value
-// console.log(formData) 
-    console.log({ email: refs.emailEl.value, name: refs.textareaEl.value });
-     refs.formEl.reset();  
+    userData = {};
   } else {
     alert('Будь ласка заповніть всі поля форми');
-    }
-    
-};
-
-function onTextareaInput (event) {
-    const message = event.target.value
-    localStorage.setItem(LOCALSTORAGE_KEY, message)
-
+  }
 }
 
-function populateTextarea () {
-   const saveMessage = localStorage.getItem(LOCALSTORAGE_KEY)
-    if (saveMessage) {
-        refs.textareaEl.value = saveMessage
-    }
+function onFormInput() {
+  userData = { email: refs.emailEl.value, message: refs.textareaEl.value };
+  localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(userData));
 }
+
+function reload() {
+  if (userData) {
+    refs.emailEl.value = userData.email || '';
+    refs.textareaEl.value = userData.message || '';
+  }
+}
+// function populateTextarea() {
+//   const saveMessage = localStorage.getItem(LOCALSTORAGE_KEY);
+//   if (saveMessage) {
+//     refs.textareaEl.value = saveMessage;
+//   }
 
 // function onInput(e) {
 //     // Працює на будь яке поле в формі і записує значення з поля у наш обєкт formData
 // formData[e.target.name] = e.target.value
-// console.log(formData) 
+// console.log(formData)
 // }

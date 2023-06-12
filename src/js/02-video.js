@@ -1,32 +1,21 @@
+import throttle from 'lodash.throttle';
+import Player from '@vimeo/player';
 
-import throttle from "lodash.throttle";
-import Player from "@vimeo/player";
-
-const KEY = "videoplayer-current-time"
-
+const KEY = 'videoplayer-current-time';
 
 const iframe = document.querySelector('iframe');
-    const player = new Player(iframe);
+const player = new Player(iframe);
 
-    player.on('play', throttle(update, 1000));
-    
-    player.getVideoTitle().then(function(title) {
-        console.log('title:', title);
-    });
+player.on('play', throttle(update, 1000));
 
-function update({seconds}) {
-    localStorage.setItem(KEY, seconds);
+player.getVideoTitle().then(function (title) {
+  console.log('title:', title);
+});
+
+function update({ seconds }) {
+  localStorage.setItem(KEY, seconds);
 }
 
 const currentTime = localStorage.getItem(KEY) || 0;
 
-player.setCurrentTime(currentTime);
-
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-
-
-
-
-
-
+// player.setCurrentTime(currentTime);
